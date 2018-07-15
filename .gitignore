@@ -1,0 +1,12 @@
+*.xml
+*.txt
+*.png
+*.jpg
+*.exe
+*.tcl
+*.pth
+*.egg
+*.pyd
+*.dll
+*.manifest
+*.pyc

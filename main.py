@@ -87,9 +87,10 @@ def parse_captcha(filename):
     bim=imgry.point(table,'1')
     bim.save('erzhi.png')#保存二值化之后的图片
     image=Image.open('erzhi.png')
-    clearNoise(image,160,2,1)#图片引用，二值化阈值，降噪率，降噪次数
+    clearNoise(image,160,1,1)#图片引用，二值化阈值，降噪率，降噪次数
     #这里使用的是8邻域降噪算法
     image.save('jiangzao.png')
+    
     str=(image_to_string('./jiangzao.png', False, '-l eng'))
     i=0
     result=""
@@ -101,13 +102,18 @@ def parse_captcha(filename):
                 result= result+'M'
             elif str[i] == '/':
                 result=result+'7'
+            elif str[i]=='l':
+                result=result+'M'
             else:
                 result=result+str[i]
 
         i=i+1
+
     print(result)
 
-parse_captcha('./image.php.png')
+#parse_captcha('./image.php.png')
+
+parse_captcha('./imag.png')
 
 '''
 pic=1
