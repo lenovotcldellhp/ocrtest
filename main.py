@@ -90,20 +90,32 @@ def parse_captcha(filename):
     clearNoise(image,160,1,1)#图片引用，二值化阈值，降噪率，降噪次数
     #这里使用的是8邻域降噪算法
     image.save('jiangzao.png')
-    
+
     str=(image_to_string('./jiangzao.png', False, '-l eng'))
     i=0
     result=""
+    #print ("****"+str)
     while i<len(str):
 
         if str[i].isalpha() or str[i].isdigit() or str[i]=='/':
            # print("******"+str[i])
-            if str[i] == 'n':
+            if str[i] == 'n':#因为M字的尖部有噪点时会被误认为M，而这个网站的验证码里并没有n这个字符
                 result= result+'M'
-            elif str[i] == '/':
+            elif str[i] == '/':#因为“7”的横线部分会被去噪算法误杀，而这个网站的验证码里没有/这个字符
                 result=result+'7'
-            elif str[i]=='l':
-                result=result+'M'
+            elif str[i]=='l':#这个网站的验证码里没有小写字母。实测发现l多数情况下是M
+                if str[i+2]=='l':
+                    result=result+'M'
+                    i=i+2
+                else:
+                    result=result+'M'
+            elif str[i]=='y':#这个网站的验证码里没有小写字母。实测发现y多数情况下是多余字符。
+                result=result+''
+            elif str[i]=='b':#这个网站的验证码里没有小写字母，实测发现b多数情况下是E
+                result=result+'E'
+            elif str[i]=='e':#这个网站的验证码里没有小写字母，实测发现e多数情况下是6
+                result=result+'6'
+
             else:
                 result=result+str[i]
 
@@ -112,9 +124,13 @@ def parse_captcha(filename):
     print(result)
 
 #parse_captcha('./image.php.png')
-
-parse_captcha('./imag.png')
-
+p=1
+while p<=7:
+    try:
+        parse_captcha('./imag'+str(p)+'.png')
+    except:
+        print ("第"+str(p)+"张图片识别失败")
+    p=p+1
 '''
 pic=1
 while pic<15:
