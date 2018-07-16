@@ -69,9 +69,9 @@ def clearNoise(image, G, N, Z):
                     draw.point((x, y), color)
 
 
-print(image_to_string('./a.png', False, '-l eng'))
-print(image_to_string('./b.png', False, '-l eng'))
-print(image_to_string('./c.png', False, '-l eng'))
+#print(image_to_string('./a.png', False, '-l eng'))
+#print(image_to_string('./b.png', False, '-l eng'))
+#print(image_to_string('./c.png', False, '-l eng'))
 #print(image_to_string('./Image.png', False, '-l eng'))
 def parse_captcha(filename):
     image = Image.open(filename)
@@ -95,10 +95,10 @@ def parse_captcha(filename):
     i=0
     result=""
     #print ("****"+str)
-    while i<len(str):
+    while i<len(str) and i<6:
 
         if str[i].isalpha() or str[i].isdigit() or str[i]=='/':
-           # print("******"+str[i])
+            #print("******"+str[i])
             if str[i] == 'n':#因为M字的尖部有噪点时会被误认为M，而这个网站的验证码里并没有n这个字符
                 result= result+'M'
             elif str[i] == '/':#因为“7”的横线部分会被去噪算法误杀，而这个网站的验证码里没有/这个字符
@@ -115,6 +115,8 @@ def parse_captcha(filename):
                 result=result+'E'
             elif str[i]=='e':#这个网站的验证码里没有小写字母，实测发现e多数情况下是6
                 result=result+'6'
+            elif str[i]=='s':#这个网站的验证码里没有小写字母，实测发现s多数情况下是9
+                result=result+'9'
 
             else:
                 result=result+str[i]
@@ -125,7 +127,7 @@ def parse_captcha(filename):
 
 #parse_captcha('./image.php.png')
 p=1
-while p<=7:
+while p<=20:
     try:
         parse_captcha('./imag'+str(p)+'.png')
     except:
