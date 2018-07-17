@@ -7,6 +7,14 @@
 
 详细PPT见captcha_recognize.pdf
 
+安装说明：
+
+* 需安装好Tesseract，并配置好环境变量
+
+* 需要Python3运行环境
+
+* 安装好后即可运行
+
 参考文献：
 
 * Adapting the Tesseract Open Source OCR Engine for Multilingual OCR，Ray Smith, Daria Antonova, Dar-Shyang Lee Google Inc.,
